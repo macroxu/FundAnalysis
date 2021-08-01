@@ -7,9 +7,16 @@ from urllib import request
 from bs4 import BeautifulSoup 
 from bs4.element import Tag 
 
+ 
 from FundCompanyListCrawler import *
+
+ 
+
 fundCompanyListCrawler =FundCompanyListCrawler()
 fundCompanyListCrawler.beginJob()
+
+
+
 
 ### 解析基金公司详细信息
 def parseFundCompanyDetailHtmlPage(url,name):

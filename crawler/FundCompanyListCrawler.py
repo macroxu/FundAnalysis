@@ -4,8 +4,10 @@
 from urllib import request
 from bs4 import BeautifulSoup 
 from bs4.element import Tag 
+import json
 
- 
+from  utils.FileManager import FileManager
+
 class FundCompanyListCrawler:
     fundCompanyList='http://fund.eastmoney.com/Company/default.html'
 
@@ -22,21 +24,38 @@ class FundCompanyListCrawler:
 
         items = soup.find(attrs={'class':'sencond-block'}).children
 
+        #创建数组,保存挖掘的fund company 列表
+        fundCompanySummaryList=[]
+
         for item in items:
             #print(item)
             if(type(item)==Tag):
                 print(item)
+                #创建对象
                 if(item.name=="a"):
                     href=item.attrs['href']
                     companyName=item.string
                     #parseFundCompanyDetailHtmlPage(href,companyName)
-                    return;
+                    fundCompanySummary={
 
-        """
-        href=item.attrs['href']
-        content=item.string
-        print(content+href)
-        """
+                    }
+                    fundCompanySummary['href']=href
+                    fundCompanySummary['name']=companyName
+                    fundCompanySummaryList.append(fundCompanySummary)
+                    
+
+        #将json数据保存到文件中
+        listFileName=FileManager.checkAndCreateDir(FileManager.getCurPath());
+
+        print(fundCompanySummaryList)
+         
+
+        filename=listFileName+'/datas/fundcompanylist.json'
+        with open(filename,'w',encoding='utf-8') as file_obj:
+            json.dump(fundCompanySummaryList,file_obj,ensure_ascii=False)
+
+
+         
         return
 
     ### 开始执行任务
