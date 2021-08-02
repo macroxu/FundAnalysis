@@ -2,4 +2,6 @@ crawler/.idea
 crawler/__pycache__
 crawler/.vscode
 crawler/datas
+crawler/logs
 */__pycache__
+crawler/utils/__pycache__
