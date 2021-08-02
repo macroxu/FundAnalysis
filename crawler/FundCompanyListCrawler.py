@@ -5,7 +5,7 @@ from urllib import request
 from bs4 import BeautifulSoup 
 from bs4.element import Tag 
 import json
-
+import os
 from  utils.FileManager import FileManager
 
 class FundCompanyListCrawler:
@@ -49,7 +49,7 @@ class FundCompanyListCrawler:
 
         print(fundCompanySummaryList)
          
-
+        os.makedirs(listFileName+'/datas',exist_ok=True)
         filename=listFileName+'/datas/fundcompanylist.json'
         with open(filename,'w',encoding='utf-8') as file_obj:
             json.dump(fundCompanySummaryList,file_obj,ensure_ascii=False)
@@ -60,6 +60,7 @@ class FundCompanyListCrawler:
 
     ### 开始执行任务
     def beginJob(self):
+        print('begin')
         ###获取基金公司列表
         with request.urlopen(self.fundCompanyList) as f:
             data = f.read()

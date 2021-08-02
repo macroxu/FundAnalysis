@@ -15,9 +15,10 @@ import os
 from logging import handlers
 
 from utils.LoggingConfig import _getLogger
-
+ 
 log=_getLogger()
-log.debug('ddddd')
+log.error('ddddd')
+
 
 fundCompanyListCrawler =FundCompanyListCrawler()
 #fundCompanyListCrawler.beginJob()
