@@ -42,6 +42,23 @@ class FundCompanyCrawler:
         #name
         companyNameTag = soup.find(attrs={'class':'ttjj-panel-main-title'})
         fundCompany['companyName']=companyNameTag.string
+
+        #enName
+        companyNameEnTag=soup.select_one('.ttjj-panel-sub-title')
+        fundCompany['companyEnName']=companyNameEnTag.string
+
+        #联系方式
+        firmContactTag=soup.select('.firm-contact p label' )
+        fundCompany['officeAddress']=firmContactTag[0].string
+        fundCompany['generalManager']=firmContactTag[1].string         
+        fundCompany['website']=firmContactTag[2].string         
+        fundCompany['customerServiceHotline']=firmContactTag[3].string         
+
+        #基金信息
+        fundInfoTag=soup.select('.fund-info ul li' )
+        fundCompany['managementScale']=fundInfoTag[0].label.string
+         
+
         print(fundCompany)
 
         

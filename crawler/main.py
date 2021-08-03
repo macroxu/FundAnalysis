@@ -32,6 +32,7 @@ for item in fundCompanylist:
     pass
     url=fundCompanyBaseUrl+item['href']
     name=item['name']
+    #FundCompanyCrawler.getAndSaveDetailHtml(url,name)
     FundCompanyCrawler.parseFromHtmlFile(name);
     break;
 
