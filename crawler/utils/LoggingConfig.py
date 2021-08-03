@@ -43,7 +43,7 @@ def _loggingConfig(**kwargs):
     sh = logging.StreamHandler()#往屏幕上输出
     sh.setFormatter(format_str) #设置屏幕上显示的格式
     log.addHandler(sh)
-    log.setLevel(logging.ERROR)
+    log.setLevel(logging.INFO)
     return log
 
 def _exeLoggingConfig(**kwargs):

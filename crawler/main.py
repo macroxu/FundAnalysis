@@ -9,6 +9,7 @@ from bs4.element import Tag
 import logging
  
 from FundCompanyListCrawler import *
+from FundCompanyCrawler import *
 
 import logging
 import os
@@ -22,6 +23,19 @@ log.error('ddddd')
 
 fundCompanyListCrawler =FundCompanyListCrawler()
 #fundCompanyListCrawler.beginJob()
+fundCompanylist=FundCompanyListCrawler.getListFromFile()
+
+
+
+
+for item in fundCompanylist:
+    pass
+    url=fundCompanyBaseUrl+item['href']
+    name=item['name']
+    FundCompanyCrawler.parseFromHtmlFile(name);
+    break;
+
+
 
 ### 解析基金公司详细信息
 def parseFundCompanyDetailHtmlPage(url,name):

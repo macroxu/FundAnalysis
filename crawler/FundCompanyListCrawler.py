@@ -7,7 +7,7 @@ from bs4.element import Tag
 import json
 import os
 from  utils.FileManager import FileManager
-
+import pathlib
 class FundCompanyListCrawler:
     fundCompanyList='http://fund.eastmoney.com/Company/default.html'
 
@@ -54,8 +54,6 @@ class FundCompanyListCrawler:
         with open(filename,'w',encoding='utf-8') as file_obj:
             json.dump(fundCompanySummaryList,file_obj,ensure_ascii=False)
 
-
-         
         return
 
     ### 开始执行任务
@@ -71,3 +69,22 @@ class FundCompanyListCrawler:
             self.parseFundCompanyListHtmlPage(data.decode('utf-8'))
         return
  
+    #从文件中获取json对象,并将json对话转化成dic
+    @staticmethod
+    def getListFromFile():
+        #判断 文件是否存在
+        filename=FileManager.getCurPath()+'/datas/fundcompanylist.json'
+        path = pathlib.Path(filename)
+        if not path.exists():
+            return 
+        
+        #读取文件
+        with open(filename,'r',encoding='utf8')as fp:
+            json_data = json.load(fp)
+            
+            return json_data
+        pass
+
+
+
+
