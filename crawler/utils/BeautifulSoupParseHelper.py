@@ -15,5 +15,20 @@ class BeautifulSoupParseHelper:
         
         dic[attrName]=tag.string
         return
-    
-    
+
+    @staticmethod
+    def parseArrayStr(soup,selector,dic,attrsName):
+        tagList=soup.select(selector)
+        # check attrsName'length equal to  taglist's length
+        if tagList is None:
+            return
+
+        if(len(tagList)!=len(attrsName)):
+            #throw exception, //todo
+            pass
+        for num in range(0,len(tagList)):
+            attrName=attrsName[num]
+            tagValue=tagList[num].string
+            dic[attrName]=tagValue
+            
+        pass

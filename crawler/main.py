@@ -16,7 +16,8 @@ import os
 from logging import handlers
 
 from utils.LoggingConfig import _getLogger
- 
+import time
+
 log=_getLogger()
 log.error('ddddd')
 
@@ -32,9 +33,12 @@ for item in fundCompanylist:
     pass
     url=fundCompanyBaseUrl+item['href']
     name=item['name']
-    #FundCompanyCrawler.getAndSaveDetailHtml(url,name)
-    FundCompanyCrawler.parseFromHtmlFile(name);
-    break;
+    #url=fundCompanyBaseUrl+'/Company/80036782.html'
+    #name='招商'
+    FundCompanyCrawler.getAndSaveDetailHtml(url,name)
+    time.sleep(0.2)
+    #FundCompanyCrawler.parseFromHtmlFile(name);
+    #break;
 
 
 

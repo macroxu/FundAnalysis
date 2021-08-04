@@ -46,17 +46,20 @@ class FundCompanyCrawler:
         BeautifulSoupParseHelper.parseSingleStr(soup,'.ttjj-panel-sub-title',fundCompany,'companyEnName')
          
         #联系方式
-        firmContactTag=soup.select('.firm-contact p label' )
-        fundCompany['officeAddress']=firmContactTag[0].string
-        fundCompany['generalManager']=firmContactTag[1].string         
-        fundCompany['website']=firmContactTag[2].string         
-        fundCompany['customerServiceHotline']=firmContactTag[3].string         
+
+        attrsName=('officeAddress', 'generalManager', 'website', 'customerServiceHotline')
+        BeautifulSoupParseHelper.parseArrayStr(soup,'.firm-contact p label',fundCompany,attrsName)
+               
 
         #基金信息
-        fundInfoTag=soup.select('.fund-info ul li' )
-        fundCompany['managementScale']=fundInfoTag[0].label.string
-         
-
+        fundInfoTag=soup.select('.fund-info ul li label.grey' )
+        print(fundInfoTag)
+       
+        fundCompany['managementScale']=fundInfoTag[0].string
+        fundCompany['fundNo']=fundInfoTag[1].a.string
+        fundCompany['fundManagerNo']=fundInfoTag[2].a.string
+        fundCompany['createdDate']=fundInfoTag[3].string
+        fundCompany['assetType']=fundInfoTag[4].string
         print(fundCompany)
 
         
