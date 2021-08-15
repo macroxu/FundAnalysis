@@ -4,6 +4,7 @@
 from urllib import request
 from  utils.FileManager import FileManager
 import os
+import json
 from utils.LoggingConfig import _getLogger
 from bs4 import BeautifulSoup
 from bs4.element import Tag 
@@ -28,9 +29,9 @@ class FundCompanyCrawler:
         return
     
     @staticmethod
-    def parseFromHtmlFile(fundName):
+    def parseFromHtmlFile(fundCompanyName):
         pass
-        filename=FileManager.getCurPath()+'/datas/'+fundName+'.html'
+        filename=FileManager.getCurPath()+'/datas/'+fundCompanyName+'.html'
          #读取文件
         utf8Data=''
         with open(filename,'r',encoding='utf8')as fp:
@@ -60,7 +61,56 @@ class FundCompanyCrawler:
         fundCompany['fundManagerNo']=fundInfoTag[2].a.string
         fundCompany['createdDate']=fundInfoTag[3].string
         fundCompany['assetType']=fundInfoTag[4].string
+
+        #解析开放式基金列表
+        fundOutlineList=soup.select('#kfsFundNetWrap tbody tr td.fund-name-code')
+        print(fundOutlineList)
+        kfsFundList=[] #开放式基金列表
+        if fundOutlineList!=None:
+            for td in fundOutlineList:
+                fundName=td.select('.name')
+                fundValue=td.select('.code')
+                fundNameCode={'name':fundName[0].string,'code':fundValue[0].string}
+                kfsFundList.append(fundNameCode)
+        
+        fundCompany['kfsFundList']=kfsFundList
+
+        #解析货币/理财型基金列表
+        HBLCFundTDList=soup.select('#HBLCFundNetCon tbody tr td.fund-name-code')
+        HBLCFundList=[]
+        if HBLCFundTDList!=None:
+            for td in HBLCFundTDList:
+                fundName=td.select('.name')
+                fundValue=td.select('.code')
+                fundNameCode={'name':fundName[0].string,'code':fundValue[0].string}
+                HBLCFundList.append(fundNameCode)
+        fundCompany['HBLCFundList']=HBLCFundList
+
+
+        #解析场内基金
+        CNFundNetTDList=soup.select('#CNFundNetCon tbody tr td.fund-name-code')
+        CNFundList=[]
+        if CNFundNetTDList!=None:
+            for td in CNFundNetTDList:
+                fundName=td.select('.name')
+                fundValue=td.select('.code')
+                fundNameCode={'name':fundName[0].string,'code':fundValue[0].string}
+                CNFundList.append(fundNameCode)
+        fundCompany['CNFundList']=CNFundList
+
+        #将数据保存到Datas/fundcompany文件夹中
+        listFileName=FileManager.checkAndCreateDir(FileManager.getCurPath());
+        os.makedirs(listFileName+'/datas/fundcompany',exist_ok=True)
+        filename=listFileName+'/datas/fundcompany/'+fundCompanyName +'.json'
+        with open(filename,'w',encoding='utf-8') as file_obj:
+            json.dump(fundCompany,file_obj,ensure_ascii=False)
+
+        return
+
+
+
         print(fundCompany)
+
 
         
         
