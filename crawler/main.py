@@ -17,15 +17,15 @@ from logging import handlers
 
 from utils.LoggingConfig import _getLogger
 import time
-
+from FundCrawler import FundCrawler
 log=_getLogger()
 log.error('ddddd')
 
 
-fundCompanyListCrawler =FundCompanyListCrawler()
+#fundCompanyListCrawler =FundCompanyListCrawler()
 #fundCompanyListCrawler.beginJob()
 fundCompanylist=FundCompanyListCrawler.getListFromFile()
-
+#FundCrawler.getAndSaveFundPageHtml('010753','招商招旭纯债D')
 
 
 
@@ -33,12 +33,12 @@ for item in fundCompanylist:
     pass
     url=fundCompanyBaseUrl+item['href']
     name=item['name']
-    #url=fundCompanyBaseUrl+'/Company/80036782.html'
-    #name='招商'
-    FundCompanyCrawler.getAndSaveDetailHtml(url,name)
+    url=fundCompanyBaseUrl+'/Company/80036782.html'
+    name='招商'
+    #FundCompanyCrawler.getAndSaveDetailHtml(url,name)
     time.sleep(0.2)
-    #FundCompanyCrawler.parseFromHtmlFile(name);
-    #break;
+    FundCompanyCrawler.parseFromHtmlFile(name);
+    break;
 
 
 
