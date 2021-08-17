@@ -25,9 +25,11 @@ log.error('ddddd')
 #fundCompanyListCrawler =FundCompanyListCrawler()
 #fundCompanyListCrawler.beginJob()
 fundCompanylist=FundCompanyListCrawler.getListFromFile()
-#FundCrawler.getAndSaveFundPageHtml('010753','招商招旭纯债D')
-
-
+FundCrawler.getAndSaveFundPageHtml('010753','招商招旭纯债D')
+ 
+if(__name__=="__main__"):
+ #  exit(0)
+   pass
 
 for item in fundCompanylist:
     pass
