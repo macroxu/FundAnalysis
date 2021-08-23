@@ -50,8 +50,9 @@ class FileManager:
     
     @staticmethod
     def saveDicAsJsonToFile(relativeFileName,dicData):
-        fullFilePath=FileManager.getCurPath+'/'+relativeFileName
-        buildDirByFilePath(relativeFileName)
+        fullFilePath=FileManager.getCurPath()+'/'+relativeFileName
+        print(fullFilePath)
+        FileManager.buildDirByFilePath(relativeFileName)
 
         with open(fullFilePath,'w',encoding='utf8')as fp:
             json.dump(dicData,fp,ensure_ascii='false')

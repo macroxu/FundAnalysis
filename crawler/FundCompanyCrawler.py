@@ -21,8 +21,8 @@ class FundCompanyCrawler:
             utf8data=data.decode('utf-8')
          
             #save to file
-            os.makedirs(FileManager.getCurPath()+'/datas',exist_ok=True)
-            filename=FileManager.getCurPath()+'/datas/'+fundName+".html"
+            os.makedirs(FileManager.getCurPath()+'/datas/fundcompanyhtml',exist_ok=True)
+            filename=FileManager.getCurPath()+'/datas/fundcompanyhtml/'+fundName+".html"
             with open(filename,'w',encoding='utf-8') as file_obj:
                 file_obj.write(utf8data)
         _getLogger().info('finish get['+fundName+']')
@@ -31,7 +31,7 @@ class FundCompanyCrawler:
     @staticmethod
     def parseFromHtmlFile(fundCompanyName):
         pass
-        filename=FileManager.getCurPath()+'/datas/'+fundCompanyName+'.html'
+        filename=FileManager.getCurPath()+'/datas/fundcompanyhtml/'+fundCompanyName+'.html'
          #读取文件
         utf8Data=''
         with open(filename,'r',encoding='utf8')as fp:
