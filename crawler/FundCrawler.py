@@ -32,27 +32,28 @@ class FundCrawler:
         fundInfo={}
         #parse page
         soup= BeautifulSoup(htmlData,"html.parser")
-
-        #获取table 的tr部分
-        trList=soup.select('.info tr')
-         
-        fundDic={} 
-        
-        for tr in trList:
-            datas=[]
-            for index, child in enumerate(tr.children):
-                datas.append(child.string)
-            #转化成dic
-            dictTR=dict(zip(datas[0::2],datas[1::2]))   
-
-            for key,value in dictTR.items():
-                value=value if value else ''
-                #print(key+'/'+value)
-                fundDic[key]=value
-            pass
+    
+        #table解析部分
+        attrNames=['fundFullName','fundAbbreviation','fundCode','fundType','issueDate','dateOfEstablishmentScale'
+                    ,'assetScale','assetManager','fundCustodian','fundManager','setupToPayDividends','managementRate'
+                    ,'escrowRate','salesServiceRate','maximumSubscriptionRate','maximumSubscriptionFeeRate','maximumRedemptionRate',
+                    'performanceBenchmark','trackingSubject']
+        th_titles=['基金全称','基金简称','基金代码','基金类型','发行日期','成立日期/规模','资产规模','基金管理人'
+                    ,'基金托管人','基金经理人','成立来分红','管理费率','托管费率','销售服务费率'
+                    ,'最高认购费率','最高赎回费率','最高赎回费率','业绩比较基准','跟踪标的']
+        txt_values=[]
+        for title in th_titles:
+            th_title=soup.find('th',text=title)
+            td_value=th_title.next_sibling
             
-        print(fundDic)
+            valueOfTitle=td_value.text
+            txt_values.append(valueOfTitle)
+
+        attrs=dict(zip(attrNames,txt_values))
         
+        fundInfo.update(attrs)
+        
+
         #投资目标 投资理念 投资范围 投资策略 分红政策 风险收益特征
         divList=soup.select('.box p')
         #投资目标
@@ -61,8 +62,12 @@ class FundCrawler:
 
         listInvest=list([pTag.string for pTag in divList])
         dictInvest=dict(zip(investTitles,listInvest))
-
-        print(dictInvest)
+        
+        fundInfo.update(dictInvest)
+        
+        #保存到文件中
+        for key,value in fundInfo.items():
+            print(key+':'+value)
 
         saveFilePath='datas/funds/'+fundName+fundCode+".json"
         FileManager.saveDicAsJsonToFile(saveFilePath,fundInfo)

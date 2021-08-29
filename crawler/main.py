@@ -25,7 +25,7 @@ log.error('ddddd')
 #fundCompanyListCrawler =FundCompanyListCrawler()
 #fundCompanyListCrawler.beginJob()
 fundCompanylist=FundCompanyListCrawler.getListFromFile()
-#FundCrawler.getAndSaveFundPageHtml('010753','招商招旭纯债D')
+FundCrawler.getAndSaveFundPageHtml('010753','招商招旭纯债D')
 
 #测试解析
 FundCrawler.parseFromHtmlFile('010753','招商招旭纯债D')
