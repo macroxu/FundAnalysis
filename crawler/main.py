@@ -21,6 +21,11 @@ from FundCrawler import FundCrawler
 log=_getLogger()
 log.error('ddddd')
 
+fundList=FundCompanyCrawler.getFundListByCompanyFile('易方达')
+FundCrawler.beginJob(fundList)
+if(__name__=="__main__"):
+   exit(0)
+   pass
 
 #fundCompanyListCrawler =FundCompanyListCrawler()
 #fundCompanyListCrawler.beginJob()

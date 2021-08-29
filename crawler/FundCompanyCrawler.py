@@ -9,6 +9,9 @@ from utils.LoggingConfig import _getLogger
 from bs4 import BeautifulSoup
 from bs4.element import Tag 
 from utils.BeautifulSoupParseHelper import BeautifulSoupParseHelper
+import pathlib
+
+
 class FundCompanyCrawler:
     def __init__(self):
         return
@@ -110,6 +113,31 @@ class FundCompanyCrawler:
 
 
         print(fundCompany)
+
+    @staticmethod
+    def getFundListByCompanyFile(fundCompanyName):
+        #根据fundName 读取文件
+        filename=FileManager.getCurPath()+'/datas/fundcompany/'+fundCompanyName+'.json'
+        path = pathlib.Path(filename)
+        if not path.exists():
+            return 
+        
+        #读取文件
+        json_data=None
+        with open(filename,'r',encoding='utf8')as fp:
+            json_data = json.load(fp)
+        
+        #将三个类型的基金列表进行合并
+        kfsFundList=json_data['kfsFundList']
+        HBLCFundList=json_data['HBLCFundList']
+        CNFundList=json_data['CNFundList']
+        fundlist=[]
+        fundlist.extend(kfsFundList)
+        fundlist.extend(HBLCFundList)
+        fundlist.extend(CNFundList)
+
+        
+        return fundlist
 
 
         

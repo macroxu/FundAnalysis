@@ -4,6 +4,8 @@ import os
 from string import Template
 from bs4 import BeautifulSoup
 from bs4 import Tag 
+import time
+
 
 fundCompanyBaseUrl='http://fundf10.eastmoney.com/jbgk_'
 #基金
@@ -75,3 +77,27 @@ class FundCrawler:
         pass
 
     
+        ### 开始执行任务
+    
+    @staticmethod
+    def beginJob(fundList):
+        #循环
+        for fund in fundList:
+            name=fund['name']
+            code=fund['code']
+            print(name+":"+code+':开始爬取html')
+
+            #查找文件是否存在，存在的话不用下载
+            
+            filePath=FileManager.getCurPath()+'/datas/fundhtml/'+name+code+".html"
+
+
+            if not os.path.exists(filePath):
+                FundCrawler.getAndSaveFundPageHtml(code,name)
+                time.sleep(0.3)
+            
+            
+
+        #
+        
+        pass
