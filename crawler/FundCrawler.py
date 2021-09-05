@@ -57,14 +57,33 @@ class FundCrawler:
         
 
         #投资目标 投资理念 投资范围 投资策略 分红政策 风险收益特征
-        divList=soup.select('.box p')
+        boxList=soup.select('.box')
         #投资目标
         investTitles=['investObject','investPhilosophy','investScope','investStrategy','dividendPolicy','Risk-returnCharacteristics']
-        investObject=divList[0].string
+        investValues=[]
+        #重新解析,在box 里面 存在多个p 
 
-        listInvest=list([pTag.string for pTag in divList])
-        dictInvest=dict(zip(investTitles,listInvest))
-        
+        firstBox=True
+        for box in boxList:
+            if firstBox:
+                pass
+                firstBox=False
+            else:
+                #读取数据
+                pass
+                pInBox=box.select('p')
+                investValue=''
+                for p in pInBox:
+                    if(len(investValue)>0):
+                        investValue+='\n'
+                    if(p.string):
+                        investValue+=p.string
+                
+                investValues.append(investValue)
+                
+
+        dictInvest=dict(zip(investTitles,investValues))
+        print(dictInvest)
         fundInfo.update(dictInvest)
         
         #保存到文件中
@@ -78,26 +97,36 @@ class FundCrawler:
 
     
         ### 开始执行任务
-    
     @staticmethod
-    def beginJob(fundList):
+    def beginDownLoadHtmlJob(fundList):
         #循环
         for fund in fundList:
-            name=fund['name']
+            name=fund['name'].replace('/','_') #特殊字符 A/B 可能引起路径问题 A_B
             code=fund['code']
             print(name+":"+code+':开始爬取html')
 
             #查找文件是否存在，存在的话不用下载
-            
             filePath=FileManager.getCurPath()+'/datas/fundhtml/'+name+code+".html"
-
-
             if not os.path.exists(filePath):
                 FundCrawler.getAndSaveFundPageHtml(code,name)
                 time.sleep(0.3)
-            
-            
-
         #
+        pass
+    
+    @staticmethod
+    def beginParseHtmlJob(fundList):
+        for fund in fundList:
+            name=fund['name'].replace('/','_') #特殊字符 A/B 可能引起路径问题 A_B
+            code=fund['code'] 
+            print(name+":"+code+":开始解析html")
+
+            #查看解析文件的文件是否存在，存在不解析
+            filePath=FileManager.getCurPath()+'/datas/funds/'+name+code+".html"
+            if not os.path.exists(filePath):
+                FundCrawler.parseFromHtmlFile(code,name)
+                time.sleep(0.3)
+
         
         pass
+
+

@@ -21,8 +21,18 @@ from FundCrawler import FundCrawler
 log=_getLogger()
 log.error('ddddd')
 
-fundList=FundCompanyCrawler.getFundListByCompanyFile('易方达')
-FundCrawler.beginJob(fundList)
+fundCompanyList=FundCompanyListCrawler.getListFromFile()
+
+for fundCompany in fundCompanyList:
+    fundCompanyName=fundCompany['name']
+    print('开始处理：'+fundCompanyName)
+    fundList=FundCompanyCrawler.getFundListByCompanyFile(fundCompanyName)
+    FundCrawler.beginDownLoadHtmlJob(fundList)
+    FundCrawler.beginParseHtmlJob(fundList)
+
+ 
+#FundCrawler.parseFromHtmlFile('007897','易方达优选多资产三个月持有混合(FOF)C')
+
 if(__name__=="__main__"):
    exit(0)
    pass
@@ -31,9 +41,9 @@ if(__name__=="__main__"):
 #fundCompanyListCrawler.beginJob()
 fundCompanylist=FundCompanyListCrawler.getListFromFile()
 FundCrawler.getAndSaveFundPageHtml('010753','招商招旭纯债D')
-
+ 
 #测试解析
-FundCrawler.parseFromHtmlFile('010753','招商招旭纯债D')
+FundCrawler.parseFromHtmlFile('007897','易方达优选多资产三个月持有混合(FOF)C')
 
 
 if(__name__=="__main__"):

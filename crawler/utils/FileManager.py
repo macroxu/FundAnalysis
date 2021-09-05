@@ -55,7 +55,8 @@ class FileManager:
         FileManager.buildDirByFilePath(relativeFileName)
 
         with open(fullFilePath,'w',encoding='utf8')as fp:
-            json.dump(dicData,fp,ensure_ascii='false')
+            json.dump(dicData,fp,ensure_ascii=False)
 
+        
         pass
 
