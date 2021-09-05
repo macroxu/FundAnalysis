@@ -121,11 +121,11 @@ class FundCrawler:
             print(name+":"+code+":开始解析html")
 
             #查看解析文件的文件是否存在，存在不解析
-            filePath=FileManager.getCurPath()+'/datas/funds/'+name+code+".html"
+            filePath=FileManager.getCurPath()+'/datas/funds/'+name+code+".json"
             if not os.path.exists(filePath):
+                print('找不到'+filePath)
                 FundCrawler.parseFromHtmlFile(code,name)
                 time.sleep(0.3)
-
         
         pass
 
