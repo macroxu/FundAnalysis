@@ -3,5 +3,6 @@ crawler/__pycache__
 crawler/.vscode
 crawler/datas
 crawler/logs
+chart/.ipynb_checkpoints
 */__pycache__
 crawler/utils/__pycache__
