@@ -7,7 +7,8 @@ from bs4.element import Tag
 import json
 import os
 from  utils.FileManager import FileManager
-import pathlib
+import pathlib 
+from FundCompanyCrawler import *
 class FundCompanyListCrawler:
     fundCompanyList='http://fund.eastmoney.com/Company/default.html'
 
@@ -85,6 +86,19 @@ class FundCompanyListCrawler:
             return json_data
         pass
 
+    
+    # 根据companylist文件，加载fund json 数据
+    @staticmethod
+    def getFundCompanyDataList():
+        fundCompanyInfoList=[]
 
+        fundCompanyList=FundCompanyListCrawler.getListFromFile()
+        for fundCompany in fundCompanyList:
+            fundCompanyName=fundCompany['name']
+            print(fundCompanyName)
+            fundCompanyInfo=FundCompanyCrawler.getFundCompanyInfoByCompanyFile(fundCompanyName)
+            print(fundCompanyInfo)
+            fundCompanyInfoList.append(fundCompanyInfo)
 
+        return fundCompanyInfoList
 

@@ -110,14 +110,12 @@ class FundCompanyCrawler:
 
         return
 
-
-
         print(fundCompany)
 
     @staticmethod
-    def getFundListByCompanyFile(fundCompanyName):
+    def getFundCompanyInfoByCompanyFile(funcCompanyName):
         #根据fundName 读取文件
-        filename=FileManager.getCurPath()+'/datas/fundcompany/'+fundCompanyName+'.json'
+        filename=FileManager.getCurPath()+'/datas/fundcompany/'+funcCompanyName+'.json'
         path = pathlib.Path(filename)
         if not path.exists():
             return 
@@ -126,6 +124,17 @@ class FundCompanyCrawler:
         json_data=None
         with open(filename,'r',encoding='utf8')as fp:
             json_data = json.load(fp)
+        
+        
+        return json_data
+
+        
+
+    @staticmethod
+    def getFundListByCompanyFile(fundCompanyName):
+    
+        #读取文件
+        json_data=FundCompanyCrawler.getFundCompanyInfoByCompanyFile()
         
         #将三个类型的基金列表进行合并
         kfsFundList=json_data['kfsFundList']
@@ -136,7 +145,6 @@ class FundCompanyCrawler:
         fundlist.extend(HBLCFundList)
         fundlist.extend(CNFundList)
 
-        
         return fundlist
 
 

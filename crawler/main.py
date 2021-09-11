@@ -18,10 +18,21 @@ from logging import handlers
 from utils.LoggingConfig import _getLogger
 import time
 from FundCrawler import FundCrawler
+
+from analysis.FundCompanyAnalysis import *
+
 log=_getLogger()
 log.error('ddddd')
 
 fundCompanyList=FundCompanyListCrawler.getListFromFile()
+
+FundCompanyAnalysis.getMaxMarketValueList()
+
+#df=pd.DataFrame(FundDataCompanyList)
+ 
+if(__name__=="__main__"):
+   exit(0)
+   pass
 
 for fundCompany in fundCompanyList:
     fundCompanyName=fundCompany['name']

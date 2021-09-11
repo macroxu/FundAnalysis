@@ -4,5 +4,10 @@ crawler/.vscode
 crawler/datas
 crawler/logs
 chart/.ipynb_checkpoints
+crawler/analysis/.ipynb_checkpoints
+crawler/analysis/outchart
 */__pycache__
 crawler/utils/__pycache__
+.idea/
+crawler/__pycache__
+crawler/analysis/__pycache__
