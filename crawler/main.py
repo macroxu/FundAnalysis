@@ -26,7 +26,7 @@ log.error('ddddd')
 
 fundCompanyList=FundCompanyListCrawler.getListFromFile()
 
-FundCompanyAnalysis.getMaxMarketValueList()
+FundCompanyAnalysis.getMaxBuildFundCompanyList()
 
 #df=pd.DataFrame(FundDataCompanyList)
  
